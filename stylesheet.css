@@ -1,0 +1,55 @@
+body div {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	/*border: 1px solid black;*/
+}
+
+#map { 
+	height: 500px; 
+	width: 77%;
+}
+	
+#opcje {
+	height: 500px;
+	width:20%;	
+	float:left;
+	padding-left:2%;
+}
+
+.jumbo {
+	height: 200px;;
+	width: 100%;
+	background-image: url("images/jumbo.jpg");
+	border: 1px solid black;
+	opacity:1;
+}
+
+.footer {
+	height: 100px;
+	background-color:#DDDDDD;
+	clear: both;
+	font-size:small;
+	padding: 20px;
+}
+
+.stopka_lewo{
+	float:left;
+	width: 80%;
+}
+ .stopka_prawo {
+ 	text-align: right;
+ }
+ 
+h1 {
+	font-style:italic;
+	color:#3388FF;
+	text-align:center;
+}
+
+.czynnosc {
+	color:#3388FF;
+	border-bottom: 1px solid #3388FF;
+	font-style:oblique;
+}
+
+
