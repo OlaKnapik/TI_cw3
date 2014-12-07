@@ -52,4 +52,6 @@ h1 {
 	font-style:oblique;
 }
 
-
+input {
+	width: 20px;
+}
