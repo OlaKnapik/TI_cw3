@@ -1,3 +1,5 @@
+body{background-color: #34495E;}
+
 body div {
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -20,16 +22,17 @@ body div {
 	height: 200px;;
 	width: 100%;
 	background-image: url("images/jumbo.jpg");
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 	opacity:1;
 }
 
 .footer {
-	height: 100px;
-	background-color:#DDDDDD;
+	height: 140px;
+	background-color:#E4F1FE;
 	clear: both;
-	font-size:small;
-	padding: 20px;
+	font-size: medium;
+	padding-left: 20px;
+	padding-right: 20px;
 }
 
 .stopka_lewo{
@@ -40,18 +43,67 @@ body div {
  	text-align: right;
  }
  
+#ny {
+	height:140px;
+	width:120px;
+	margin-left: 10px;
+}
+ 
 h1 {
 	font-style:italic;
-	color:#3388FF;
+	color:#663399;
 	text-align:center;
+	margin-top: 0px;
+	font-size: 45px;
 }
 
 .czynnosc {
-	color:#3388FF;
-	border-bottom: 1px solid #3388FF;
-	font-style:oblique;
+	color:#E4F1FE;
+	border-bottom: 1px solid #E4F1FE;
+	font-size: 20px;
 }
 
-input {
-	width: 20px;
+.przyciski div{
+	display: inline;
+	height: 50px;
+}
+
+.przyciski div img{
+	height: 40px;
+	width: 45px;
+	margin: 5px;
+}
+
+
+.przyciski2 div{
+	display: inline;
+	height: 70px;
+}
+
+.przyciski2 div img{
+	height: 60px;
+	width: 60px;
+	margin: 10px;
+}
+
+#start{
+	height: 100px;
+	width: 100px;
+}
+
+#dodatkowe{
+	color:#E4F1FE;
+}
+
+#zabytki div img {
+	height: 120px;
+	text-align: center;
+}
+
+#zabytki div{
+	background-color:#FDE3A7;
+	margin-right: 15px;
+}
+#zabytki div div{
+	padding: 0px 8px 0px 8px;
 }

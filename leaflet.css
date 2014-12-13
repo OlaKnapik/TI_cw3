@@ -353,7 +353,7 @@
 	padding: 2px 5px 1px;
 	font-size: 11px;
 	white-space: nowrap;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	-moz-box-sizing: content-box;
 	     box-sizing: content-box;
 
