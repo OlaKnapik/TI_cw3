@@ -15,8 +15,155 @@ $(document).ready(function() {
 	$("#s2").hide();
 });
 
+
 widp = false;
 widt = false;
+
+
+//..........GeoJSON - forty.....................
+
+	
+var forty = [{
+    "type": "Feature",
+    "properties": {"nazwa": "Fort Prusy"},
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+            [17.31756, 50.48374],
+			[17.31811, 50.48372],
+			[17.31828, 50.48336],
+			[17.31782, 50.48317],
+			[17.31734, 50.48338]
+        ]]
+    }
+}, 
+
+{
+    "type": "Feature",
+    "properties": {"nazwa": "Fort III"},
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+            [17.35038, 50.46825],
+			[17.35132, 50.46778],
+			[17.35226, 50.4683],
+			[17.35226, 50.46908],
+			[17.35071, 50.46875]
+            
+        ]]
+    }
+},
+
+{
+    "type": "Feature",
+    "properties": {"nazwa": "Fort Bombardier"},
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+            [17.32272, 50.48172],
+			[17.32256, 50.48211],
+			[17.32346, 50.48221],
+			[17.32359, 50.4818]
+            
+        ]]
+    }
+},
+
+{
+    "type": "Feature",
+    "properties": {"nazwa": "Fort II"},
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+            [17.32501, 50.49244],
+			[17.32649, 50.49192],
+			[17.32651, 50.49132],
+			[17.32539, 50.4913],
+			[17.32443, 50.49104],
+			[17.32401, 50.49154]
+        ]]
+    }
+},
+
+{
+    "type": "Feature",
+    "properties": {"nazwa": "Fort Wodny"},
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+            [17.32103, 50.46596],
+			[17.32044, 50.46546],
+			[17.32157, 50.46492],
+			[17.32224, 50.4655],
+			[17.32157, 50.46569]
+        ]]
+    }
+},
+
+{
+    "type": "Feature",
+    "properties": {"nazwa": "Fort I"},
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+            [17.33554, 50.48803],
+			[17.3376, 50.48741],
+			[17.33806, 50.48789],
+			[17.33726, 50.48852],
+			[17.33591, 50.48872]
+        ]]
+    }
+}
+];
+
+var stylFort1 = {
+    "color": "#300244",
+    "weight": 2
+};
+
+var geojson;
+
+function highlightFeature(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 8,
+        dashArray: '',
+        fillOpacity: 0.7
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera) {
+        layer.bringToFront();
+    }
+}
+
+
+function resetHighlight(e) {
+    geojson.resetStyle(e.target);  
+}
+
+function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
+}
+
+function onEachFeature(feature, layer) {
+	
+	layer.bindPopup(feature.properties.nazwa);
+	
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: zoomToFeature
+    });
+}
+
+	geojson = L.geoJson(forty, 
+		{
+    	style: stylFort1,
+    	onEachFeature: onEachFeature
+		})
+
+
 
 //Warstwy
 
@@ -42,8 +189,18 @@ var osmMap = L.tileLayer(osmUrl, {attribution: osmAttrib, maxZoom: 16, minZoom: 
         	
 
 //Inicjalizacja mapy
-var map = L.map('map').setView([50.473,17.338], 14);
+var map = L.map('map').setView([50.473,17.338], 13);
 
+
+var skala=L.control.scale({
+		position:"bottomleft",
+		maxWidth: 150,
+		updateWhenIdle:true,
+		imperial:false,
+		});
+	skala.addTo(map);
+	
+	
 var baseLayers = {
 	"Mapa podstawowa": osmMap,
 	"Odcienie szarości": odc_sz,
@@ -101,12 +258,12 @@ var jedzenie = new L.LayerGroup();
 			L.marker([50.4732132, 17.3336845],{icon: greenIcon}).bindPopup('jedzenie7').addTo(jedzenie);
 
 
-						
-			
+									
 var overlays = {
 			"Wycieczka": wycieczka,
 			"Obiekty gastronomiczne": jedzenie,
-			"Dzialki": dzialeczki
+			"Dzialki": dzialeczki,
+			"Fortyfikacje": geojson
 		};
 			
 		
@@ -161,8 +318,8 @@ var ksztalt;
 	});
 
 	
-	$('#zmierz').click(function(){
-	
+	$('#dlugosc').click(function(){
+		ksztalt = "dlugosc";
 	});
 
 
@@ -179,17 +336,18 @@ $('#cofnij').click(function()
 	})
 
 $('#usun').click(function() 
-	{for (var i= 0; i < wszystkol.length;i++) 
 	{
+		for (var i= 0; i < wszystkol.length;i++) 
+		{
 		map.removeLayer(wszystkol[i]);
-	}})
-
+		}
+	})
 
 
 //Opcje
 
 	$('#zoom').click(function(){
-		map.setView([50.473,17.338], 14);
+		map.setView([50.473,17.338], 13);
 	});
 
 	$('#wsp').click(function(){
@@ -222,7 +380,7 @@ var strona = 0;
 	
 	
 	$('#stop').click(function(){
-	map.setView([50.473,17.338], 14);
+	map.setView([50.473,17.338], 13);
 	$("#start").show();
 	$(".czynnosc").show();
 	$(".przyciski").show();
@@ -313,6 +471,11 @@ var listalinia = [];
 var i = 0;
 var j = 0;
 wszystkol = [];
+var circlel = [];
+var licznik_linia = 0;
+var kon = 0;
+var pocz = 0;
+var d = 0;
 	
 function onMapClick(e) {
 	
@@ -352,7 +515,7 @@ function onMapClick(e) {
 		});
 		
 		map.addLayer(circle);
-		wszystkol.push(circle);	
+		circlel.push(circle);	
 	}
 	
 	
@@ -368,7 +531,7 @@ function onMapClick(e) {
 		});
 		
 		map.addLayer(circle);	
-		wszystkol.push(circle);
+		circlel.push(circle);
 	}	
 	
 	
@@ -390,6 +553,38 @@ function onMapClick(e) {
         popup.openOn(map);
 		
 	}
+	
+
+	if (ksztalt == "dlugosc")
+		{
+			if (licznik_linia == 0)
+			{
+					pocz = e.latlng;
+					licznik_linia = licznik_linia + 1;
+			}
+			
+			else
+			{
+				kon = e.latlng;
+				d = pocz.distanceTo(kon);
+				
+				
+				var prosta = 
+				{
+			  	"type": "LineString",
+    			"coordinates": [ [pocz.lng, pocz.lat], [kon.lng, kon.lat] ]
+   				};
+   				liniad = L.geoJson(prosta);
+   				map.addLayer(liniad);
+   				alert ("Odległość wynosi " + d.toFixed(2) + " m");
+   				
+   				kon = 0;
+				pocz = 0;
+				d = 0;
+				licznik_linia = 0;
+				map.removeLayer(liniad);
+			}
+		}
 	
 }
 
@@ -416,7 +611,11 @@ function onMapDblClick(e)
 	j = 0;
 	wszystkol.push(linia);
 	}
+	
+	for (var m= 0; m < circlel.length;m++) 
+		{
+		map.removeLayer(circlel[m]);
+		}
 }
 	
 map.on('dblclick', onMapDblClick);
-
